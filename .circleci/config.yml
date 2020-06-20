@@ -13,6 +13,4 @@ jobs:
   format:
     executor: terraform/terraform-0_12
     steps:
-      - run:
-          name: tf files format check
-          command: fmt-check
+      - fmt-check
