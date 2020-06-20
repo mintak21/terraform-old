@@ -13,4 +13,5 @@ jobs:
   format:
     executor: terraform/terraform-0_12
     steps:
-      - fmt-check
+      - terraform/fmt-check:
+          path: files
