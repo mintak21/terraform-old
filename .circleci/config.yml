@@ -9,6 +9,7 @@ workflows:
     jobs:
       - format
 
+
 jobs:
   format:
     executor: terraform-0_12
