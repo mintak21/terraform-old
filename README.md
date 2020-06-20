@@ -1,2 +1,5 @@
-# terraform
-mintak21's terraform manifest files
+# terraform files
+## setup
+```bash
+make setup_macos # for MacOS
+```
