@@ -5,15 +5,14 @@ orbs:
 
 workflows:
   version: 2
-  build:
+  ci:
     jobs:
       - format
 
 jobs:
   format:
-    executor: terraform-0_12
+    executor: terraform/terraform-0_12
     steps:
-      - checkout
       - run:
           name: tf files format check
-          command: fmt-check
+          command: terraform/fmt-check
