@@ -12,7 +12,9 @@ workflows:
 jobs:
   format:
     executor: terraform-0_12
+    parameters:
+      path: files
     steps:
-      - fmt-check:
-          parameters:
-            path: files
+      - run:
+          name: tf files format check
+          command: fmt-check
