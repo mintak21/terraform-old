@@ -12,7 +12,6 @@ workflows:
 jobs:
   format:
     executor: terraform-0_12
-    path: files
     steps:
       - run:
           name: tf files format check
