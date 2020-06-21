@@ -27,8 +27,8 @@ function create_S3_bucket() {
 function create_dynamoDB() {
   aws dynamodb create-table \
       --table-name ${state_lock_table_name} \
-      --attribute-definitions '[{"AttributeName":"stateLockID","AttributeType": "S"}]' \
-      --key-schema '[{"AttributeName":"stateLockID","KeyType": "HASH"}]' \
+      --attribute-definitions '[{"AttributeName":"LockID","AttributeType": "S"}]' \
+      --key-schema '[{"AttributeName":"LockID","KeyType": "HASH"}]' \
       --provisioned-throughput '{"ReadCapacityUnits": 1, "WriteCapacityUnits": 1}'
   printf '\033[36m%s\033[m\n' "created dynamoDB table for lock: ${state_lock_table_name}."
 }
