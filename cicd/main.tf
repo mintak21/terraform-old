@@ -1,5 +1,5 @@
 data aws_iam_policy codebuild_admin {
-  arn = "arn:aws:iam::aws:policy/AWSCodeBuildAdminAccess"
+  arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
 module iam_codebuild {
@@ -24,6 +24,7 @@ resource aws_codebuild_project continuous_check {
     type            = "GITHUB"
     location        = var.github_repogitory_location
     git_clone_depth = 1
+    report_build_status = true // リポジトリ側へ結果通知
     // buildspec
     buildspec = var.buildspec_settings
   }
