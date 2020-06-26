@@ -7,7 +7,7 @@ env:
 phases:
   # install:
   #   command:
-  ci:
+  build:
     commands:
       - terraform fmt -recursive -check
       # - command
