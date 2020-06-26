@@ -7,7 +7,7 @@ variable project_name {
 variable buildspec_settings {
   type        = string
   description = "ビルド仕様"
-  default     = "buildspec.yml"
+  default     = "cicd/buildspec.yml"
 }
 
 variable github_repogitory_location {
