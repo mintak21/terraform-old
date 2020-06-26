@@ -1,0 +1,36 @@
+version: 0.2
+
+env:
+  parameter-store:
+    GITHUB_TOKEN: "/mintak21/continuous_check/github/token"
+
+phases:
+  # install:
+  #   command:
+  ci:
+    commands:
+      - terraform fmt -recursive -check
+      # - command
+      # - command
+  #post_build:
+    #commands:
+      # - command
+      # - command
+#reports:
+  #report-name-or-arn:
+    #files:
+      # - location
+      # - location
+    #base-directory: location
+    #discard-paths: yes
+    #file-format: JunitXml | CucumberJson
+#artifacts:
+  #files:
+    # - location
+    # - location
+  #name: $(date +%Y-%m-%d)
+  #discard-paths: yes
+  #base-directory: location
+#cache:
+  #paths:
+    # - paths
