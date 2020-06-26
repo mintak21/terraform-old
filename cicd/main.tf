@@ -3,7 +3,7 @@ data aws_iam_policy codebuild_admin {
 }
 
 module iam_codebuild {
-  source                        = "./../module/aws/iam"
+  source = "./../module/aws/iam"
 
   name                          = "continuous-check"
   policy                        = data.aws_iam_policy.codebuild_admin.policy
@@ -21,9 +21,9 @@ resource aws_codebuild_project continuous_check {
 
   // ソース
   source {
-    type            = "GITHUB"
-    location        = var.github_repogitory_location
-    git_clone_depth = 1
+    type                = "GITHUB"
+    location            = var.github_repogitory_location
+    git_clone_depth     = 1
     report_build_status = true // リポジトリ側へ結果通知
     // buildspec
     buildspec = var.buildspec_settings
