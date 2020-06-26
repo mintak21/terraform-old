@@ -6,10 +6,9 @@ function validate() {
   target_dirs=`find ${base_dir} -type f -name "*.tf" -exec dirname {} \; | sort -u`
   for target in ${target_dirs}
   do
-    pushd ${target}
+    cd ${target}
     terraform init
-    terraform validate
-    popd
+    terraform validate -no-color
   done
 }
 
