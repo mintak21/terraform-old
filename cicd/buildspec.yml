@@ -10,9 +10,10 @@ phases:
       - ${CODEBUILD_SRC_DIR}/scripts/ci/install_packages.sh
   build:
     commands:
-      - terraform fmt -recursive -check
+      - ${CODEBUILD_SRC_DIR}/scripts/ci/format.sh
       - ${CODEBUILD_SRC_DIR}/scripts/ci/validate.sh
-      # - command
+      - ${CODEBUILD_SRC_DIR}/scripts/ci/lint_aws.sh
+      # - ${CODEBUILD_SRC_DIR}/scripts/ci/plan.sh
       # - command
   #post_build:
     #commands:
