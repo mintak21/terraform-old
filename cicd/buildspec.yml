@@ -10,6 +10,7 @@ phases:
   build:
     commands:
       - terraform fmt -recursive -check
+      - ${CODEBUILD_SRC_DIR}/scripts/ci/validate.sh
       # - command
       # - command
   #post_build:
