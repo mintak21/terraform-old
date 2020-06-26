@@ -5,8 +5,9 @@ env:
     GITHUB_TOKEN: "/mintak21/continuous_check/github/token"
 
 phases:
-  # install:
-  #   command:
+  install:
+    commands:
+      - ${CODEBUILD_SRC_DIR}/scripts/ci/install_packages.sh
   build:
     commands:
       - terraform fmt -recursive -check
