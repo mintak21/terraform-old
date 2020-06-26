@@ -7,7 +7,7 @@ function validate() {
   for target in ${target_dirs}
   do
     cd ${target}
-    terraform init
+    terraform init -input=false -no-color
     terraform validate -no-color
   done
 }

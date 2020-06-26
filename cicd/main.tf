@@ -31,9 +31,9 @@ resource aws_codebuild_project continuous_check {
 
   // 環境
   environment {
-    image           = "hashicorp/terraform:light" // カスタムイメージURL
-    type            = "LINUX_CONTAINER"           // 環境タイプ
-    compute_type    = "BUILD_GENERAL1_SMALL"      // コンピューティングタイプ
+    image           = "hashicorp/terraform:0.12.28" // カスタムイメージURL
+    type            = "LINUX_CONTAINER"             // 環境タイプ
+    compute_type    = "BUILD_GENERAL1_SMALL"        // コンピューティングタイプ
     privileged_mode = false
   }
   // サービスロール
