@@ -1,19 +1,20 @@
-data aws_iam_policy codebuild_admin {
+data aws_iam_policy administrator {
   arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
-module iam_codebuild {
+module service_role_for_continuous_check {
   source = "./../module/aws/iam"
 
-  name                          = "continuous-check"
-  policy                        = data.aws_iam_policy.codebuild_admin.policy
+  role_name                     = var.codebuild_role_name
+  policy_name                   = var.codebuild_role_policy_name
+  policy                        = data.aws_iam_policy.administrator.policy
   principal_service_identifiers = ["codebuild.amazonaws.com"]
 }
 
 resource aws_codebuild_project continuous_check {
   // プロジェクトの設定
-  name          = var.project_name
-  description   = "continuous integration and delivery project for terraform"
+  name          = var.codebuild_project_name
+  description   = "continuous integration project for terraform repogistory"
   badge_enabled = false
   tags = {
     Description = "terraform ci/cd"
@@ -25,8 +26,7 @@ resource aws_codebuild_project continuous_check {
     location            = var.github_repository_location
     git_clone_depth     = 1
     report_build_status = true // リポジトリ側へ結果通知
-    // buildspec
-    buildspec = var.buildspec_settings
+    buildspec           = var.buildspec_settings
   }
 
   // 環境
@@ -37,7 +37,7 @@ resource aws_codebuild_project continuous_check {
     privileged_mode = false
   }
   // サービスロール
-  service_role = module.iam_codebuild.aws_iam_role_arn
+  service_role = module.service_role_for_continuous_check.this_aws_iam_role_arn
   // タイムアウト
   build_timeout = "30"
   // キュータイムアウト
@@ -59,7 +59,7 @@ resource aws_codebuild_project continuous_check {
     cloudwatch_logs {
       status      = "ENABLED"
       group_name  = "mintak"
-      stream_name = "continious-check-terraform"
+      stream_name = "logs-for-${var.codebuild_project_name}"
     }
 
     s3_logs {
@@ -69,7 +69,7 @@ resource aws_codebuild_project continuous_check {
 }
 
 // プライマリソースのウェブフックイベント
-resource aws_codebuild_webhook push_event {
+resource aws_codebuild_webhook continuous_check {
   project_name = aws_codebuild_project.continuous_check.name
 
   // PR作成・更新時

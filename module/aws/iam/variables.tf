@@ -1,6 +1,11 @@
-variable name {
+variable role_name {
   type        = string
-  description = "ロール/ポリシー名称"
+  description = "IAMロール名称"
+}
+
+variable policy_name {
+  type        = string
+  description = "IAMポリシー名称"
 }
 
 variable policy {

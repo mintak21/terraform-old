@@ -12,13 +12,13 @@ data aws_iam_policy_document assume_role {
 
 # IAMロール
 resource aws_iam_role this {
-  name               = var.name
+  name               = var.role_name
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 # IAMポリシー
 resource aws_iam_policy this {
-  name   = "ServiceRole_${var.name}"
+  name   = var.policy_name
   policy = var.policy
 }
 

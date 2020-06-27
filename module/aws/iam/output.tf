@@ -1,9 +1,9 @@
-output aws_iam_role_arn {
+output this_aws_iam_role_arn {
   description = "IAMロールのarn値"
   value       = aws_iam_role.this.arn
 }
 
-output aws_iam_role_name {
+output this_aws_iam_role_name {
   description = "IAMロール名称"
   value       = aws_iam_role.this.name
 }
