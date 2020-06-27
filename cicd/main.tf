@@ -22,7 +22,7 @@ resource aws_codebuild_project continuous_check {
   // ソース
   source {
     type                = "GITHUB"
-    location            = var.github_repogitory_location
+    location            = "https://github.com/${var.github_repository_owner}/${var.github_repository_name}.git"
     git_clone_depth     = 1
     report_build_status = true // リポジトリ側へ結果通知
     // buildspec
@@ -35,6 +35,18 @@ resource aws_codebuild_project continuous_check {
     type            = "LINUX_CONTAINER"           // 環境タイプ
     compute_type    = "BUILD_GENERAL1_SMALL"      // コンピューティングタイプ
     privileged_mode = false
+
+    // tfnotify用の環境変数
+    environment_variable {
+      name  = "TF_NOTIFY_REPO_OWNER"
+      value = var.github_repository_owner
+      type  = "PLAINTEXT"
+    }
+    environment_variable {
+      name  = "TF_NOTIFY_REPO_NAME"
+      value = var.github_repository_name
+      type  = "PLAINTEXT"
+    }
   }
   // サービスロール
   service_role = module.iam_codebuild.aws_iam_role_arn

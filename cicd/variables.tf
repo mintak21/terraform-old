@@ -10,7 +10,12 @@ variable buildspec_settings {
   default     = "cicd/buildspec.yml"
 }
 
-variable github_repogitory_location {
+variable github_repository_owner {
   type        = string
-  description = "連携するGithubリポジトリURL"
+  description = "連携するGithubOwner"
+}
+
+variable github_repository_name {
+  type        = string
+  description = "連携するGithubリポジトリ名称"
 }
