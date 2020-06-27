@@ -41,6 +41,6 @@ resource aws_vpc tutorial {
   enable_dns_support   = true
   enable_dns_hostnames = true
   tags = {
-    Description = "tutorial"
+    Description = "tutorial2"
   }
 }
