@@ -1,10 +1,10 @@
 ci: codebuild
 notifier:
   github:
-    token: ${GITHUB_TOKEN}
+    token: $GITHUB_TOKEN
     repository:
-      owner: ${TF_NOTIFY_REPO_OWNER}
-      name: ${TF_NOTIFY_REPO_NAME}
+      owner: "mintak21"
+      name: "terraform"
 terraform:
   plan:
     template: |
