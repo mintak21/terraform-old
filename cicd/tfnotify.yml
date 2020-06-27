@@ -3,7 +3,7 @@ notifier:
   github:
     token: $GITHUB_TOKEN
     repository:
-      owner: $TF_NOTIFY_REPO_OWNER
+      owner: $OWNER
       name: $TF_NOTIFY_REPO_NAME
 terraform:
   plan:
