@@ -13,7 +13,7 @@ phases:
       - ${CODEBUILD_SRC_DIR}/scripts/ci/format.sh
       - ${CODEBUILD_SRC_DIR}/scripts/ci/validate.sh
       - ${CODEBUILD_SRC_DIR}/scripts/ci/lint_aws.sh
-      # - ${CODEBUILD_SRC_DIR}/scripts/ci/plan.sh
+      - ${CODEBUILD_SRC_DIR}/scripts/ci/plan.sh
       # - command
   #post_build:
     #commands:
