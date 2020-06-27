@@ -22,7 +22,7 @@ resource aws_codebuild_project continuous_check {
   // ソース
   source {
     type                = "GITHUB"
-    location            = "https://github.com/${var.github_repository_owner}/${var.github_repository_name}.git"
+    location            = var.github_repository_location
     git_clone_depth     = 1
     report_build_status = true // リポジトリ側へ結果通知
     // buildspec

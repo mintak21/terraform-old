@@ -1,8 +1,6 @@
 version: 0.2
 
 env:
-  variables:
-    OWNER: "mintak21"
   parameter-store:
     GITHUB_TOKEN: "/mintak21/continuous_check/github/token"
 

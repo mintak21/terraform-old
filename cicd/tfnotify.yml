@@ -2,9 +2,10 @@ ci: codebuild
 notifier:
   github:
     token: $GITHUB_TOKEN
+    # repositoryに環境変数は使えないよう
     repository:
-      owner: $OWNER
-      name: $TF_NOTIFY_REPO_NAME
+      owner: "mintak21"
+      name: "terraform"
 terraform:
   plan:
     template: |
