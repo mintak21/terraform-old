@@ -8,7 +8,7 @@ function deep_lint() {
   do
     cd ${target}
     terraform init -input=false -no-color
-    tflint --deep --aws-region=${aws_region} -no-color
+    tflint --deep --aws-region=${aws_region} --no-color
   done
 }
 
