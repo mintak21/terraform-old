@@ -3,8 +3,8 @@ notifier:
   github:
     token: $GITHUB_TOKEN
     repository:
-      owner: "mintak21"
-      name: "terraform"
+      owner: $TF_NOTIFY_REPO_OWNER
+      name: $TF_NOTIFY_REPO_NAME
 terraform:
   plan:
     template: |
