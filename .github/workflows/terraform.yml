@@ -50,6 +50,8 @@ jobs:
         uses: reviewdog/action-tflint@master
         with:
           github_token: ${{ secrets.github_token }}
+          filter_mode: file
+          working_directory: ./environments/aws/${{ matrix.env }}
 
       - name: Terraform Plan Env:${{ matrix.env }}
         run: terraform plan
