@@ -38,6 +38,9 @@ jobs:
       - name: Install Dependent Packages
         run: ./scripts/ci/install_packages.sh
 
+      - name: Check Environment Values
+        run: echo "REPOSITORY is ${GITHUB_REPOSITORY} ID is ${GITHUB_RUN_ID} Revision is ${GITHUB_SHA}"
+
       - name: Terraform Format Check
         run: ./scripts/ci/format.sh
 
@@ -51,6 +54,9 @@ jobs:
         run: ./scripts/ci/plan.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: terraform
+          GITHUB_RUN_ID: 1
+          GITHUB_SHA: test
       # - name: Terraform Apply
       #   if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       #   run: terraform apply -auto-approve
