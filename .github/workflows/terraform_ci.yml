@@ -2,10 +2,10 @@ name: "Terraform Continious CI"
 
 on:
   push:
-    branches:
-      - master
-      - development
-  pull_request:
+  #   branches:
+  #     - master
+  #     - development
+  # pull_request:
 
 jobs:
   terraform-ci:
@@ -54,9 +54,6 @@ jobs:
         run: ./scripts/ci/plan.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: terraform
-          GITHUB_RUN_ID: 1
-          GITHUB_SHA: test
       # - name: Terraform Apply
       #   if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       #   run: terraform apply -auto-approve
