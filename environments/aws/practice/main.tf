@@ -30,7 +30,7 @@ data aws_ami latest {
 
 resource aws_instance tutorial {
   ami           = data.aws_ami.latest.image_id
-  instance_type = "t2.unknown"
+  instance_type = "t2.unknown2"
   tags = {
     Name = var.aws_instance_tag_name
   }
