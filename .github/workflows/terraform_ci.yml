@@ -36,19 +36,19 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }} # for development
 
       - name: Install Dependent Packages
-        run: ./scripts/ci/install_packages.sh
+        run: sh ./scripts/ci/install_packages.sh
 
       - name: Terraform Format Check
-        run: ./scripts/ci/format.sh
+        run: sh ./scripts/ci/format.sh
 
       - name: Terraform Validate
-        run: ./scripts/ci/validate.sh
+        run: sh ./scripts/ci/validate.sh
 
       - name: Terraform Lint(Deep AWS API)
-        run: ./scripts/ci/lint_aws.sh
+        run: sh ./scripts/ci/lint_aws.sh
 
       - name: Terraform Plan
-        run: ./scripts/ci/plan.sh
+        run: sh ./scripts/ci/plan.sh
       # - name: Terraform Apply
       #   if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       #   run: terraform apply -auto-approve
