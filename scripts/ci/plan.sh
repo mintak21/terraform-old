@@ -6,13 +6,18 @@ SCRIPT_DIR=$(
 cd ${SCRIPT_DIR}
 . ./settings.sh
 
+message() {
+  envs=$(pwd | rev | cut -d '/' -f 1 | rev)
+  echo "Target: ${envs} planned date: $(TZ=-9 date +"%Y/%m/%d %H:%M:%S")"
+}
+
 plan() {
   target_dirs=$(find ../../${base_dir} -type f -name "*.tf" -exec dirname {} \; | sort -u | grep -v ".terraform")
   for target in ${target_dirs}; do
     cd ${target}
     terraform init -input=false -no-color
     terraform plan -input=false -no-color |
-      /usr/local/bin/tfnotify --config ${SCRIPT_DIR}/../../cicd/tfnotify.yml plan --message "$(date)"
+      /usr/local/bin/tfnotify --config ${SCRIPT_DIR}/../../cicd/tfnotify.yml plan --message "$(message)"
     cd ${SCRIPT_DIR}
   done
 }
