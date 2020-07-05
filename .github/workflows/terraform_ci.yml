@@ -2,10 +2,11 @@ name: "Terraform Continious CI"
 
 on:
   push:
-    branches:
-      - master
-      - development
-  pull_request:
+  # どうもGithub-Actions上でtfnotifyはpushでないと動かない様子
+  #   branches:
+  #     - master
+  #     - development
+  # pull_request:
 
 jobs:
   terraform-ci:
