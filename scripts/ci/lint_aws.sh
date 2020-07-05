@@ -1,5 +1,8 @@
 #!/bin/sh
-cd $(dirname $0)
+SCRIPT_DIR=$(
+  cd $(dirname $0)
+  pwd
+)
 . ./settings.sh
 
 deep_lint() {
@@ -8,7 +11,7 @@ deep_lint() {
     cd ${target}
     terraform init -input=false -no-color
     /usr/local/bin/tflint --deep --aws-region=${aws_region} --no-color
-    cd $(dirname $0)
+    cd ${SCRIPT_DIR}
   done
 }
 

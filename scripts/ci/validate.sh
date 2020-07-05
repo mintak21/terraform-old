@@ -1,5 +1,8 @@
 #!/bin/sh
-cd $(dirname $0)
+SCRIPT_DIR=$(
+  cd $(dirname $0)
+  pwd
+)
 . ./settings.sh
 
 validate() {
@@ -8,7 +11,7 @@ validate() {
     cd ${target}
     terraform init -input=false -no-color
     terraform validate -no-color
-    cd $(dirname $0)
+    cd ${SCRIPT_DIR}
   done
 }
 
