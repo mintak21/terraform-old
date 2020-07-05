@@ -16,6 +16,11 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./environments/aws/${{ matrix.env }}
+
     steps:
       - uses: actions/checkout@v2
       - name: Configure AWS Credentials
