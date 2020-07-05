@@ -13,7 +13,7 @@ message() {
     cat <<EOF
 ### Target Environment\n
 ${envs}\n
-### Planned Date
+### Planned Date\n
 ${now}
 EOF
   )

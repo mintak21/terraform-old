@@ -1,4 +1,4 @@
-name: "Terraform Continious CI"
+name: "Terraform Continious Custom CI"
 
 on:
   push:
