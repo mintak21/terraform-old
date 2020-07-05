@@ -3,7 +3,7 @@
 
 ```bash
 ├── cicd/         # CI setting files
-├── files/        # IaC files
+├── environments/ # IaC files
 ├── module/       # terraform modules
 └── scripts/
    ├── aws/       # scripts to use aws-cli
