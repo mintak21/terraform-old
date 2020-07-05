@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  terraform:
+  terraform-ci:
     name: "Terraform"
     strategy:
       matrix:
@@ -32,24 +32,26 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-1
 
-      - name: ${{ matrix.env }} Terraform Init
+      - name: ${{ matrix.env }} Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }} # for development
+
+      - name: Terraform Init Env:${{ matrix.env }}
         run: terraform init
 
-      - name: ${{ matrix.env }} Terraform Format Check
+      - name: Terraform Format Check Env:${{ matrix.env }}
         run: terraform fmt -check
 
-      - name: ${{ matrix.env }} Terraform Validate
+      - name: Terraform Validate Env:${{ matrix.env }}
         run: terraform validate
 
-      - name: ${{ matrix.env }} TFLint
+      - name: TFLint Env:${{ matrix.env }}
         uses: reviewdog/action-tflint@master
         with:
           github_token: ${{ secrets.github_token }}
 
-      - name: ${{ matrix.env }} Terraform Plan
+      - name: Terraform Plan Env:${{ matrix.env }}
         run: terraform plan
       # - name: Terraform Apply
       #   if: github.ref == 'refs/heads/master' && github.event_name == 'push'
