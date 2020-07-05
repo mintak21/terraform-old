@@ -3,7 +3,7 @@
 
 ```bash
 ├── cicd/         # CI setting files
-├── files/        # IaC files
+├── environments/ # IaC files
 ├── module/       # terraform modules
 └── scripts/
    ├── aws/       # scripts to use aws-cli
@@ -19,6 +19,12 @@ check below.
 - validate
 - lint
 - plan & notify Pull Requests
+
+### Github Actions
+Valid Setting `terraform_official_ci.yml`
+
+### AWS CodeBuild
+Under Suspention
 
 ![image](https://user-images.githubusercontent.com/57534475/85926096-ebb1d100-b8d7-11ea-8ad0-e88ca6f74e71.png)
 

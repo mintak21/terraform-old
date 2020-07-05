@@ -1,4 +1,4 @@
-ci: codebuild
+ci: github-actions
 notifier:
   github:
     token: $GITHUB_TOKEN

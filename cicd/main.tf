@@ -14,7 +14,7 @@ module service_role_for_continuous_check {
 resource aws_codebuild_project continuous_check {
   // プロジェクトの設定
   name          = var.codebuild_project_name
-  description   = "continuous integration project for terraform repogistory"
+  description   = "continuous integration project for terraform repository"
   badge_enabled = false
   tags = {
     Description = "terraform ci/cd"
