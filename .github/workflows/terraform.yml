@@ -1,0 +1,48 @@
+name: "Terraform Continious CI/CD"
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  terraform:
+    name: "Terraform"
+    strategy:
+      matrix:
+        env: [practice, development]
+
+    runs-on: ubuntu-latest
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./environments/aws/${{ matrix.env }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }} # for development
+
+      - name: ${{ matrix.env }} Terraform Init
+        run: terraform init
+
+      - name: ${{ matrix.env }} Terraform Format Check
+        run: terraform fmt -check
+
+      - name: ${{ matrix.env }} Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan
+      # - name: Terraform Apply
+      #   if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      #   run: terraform apply -auto-approve
