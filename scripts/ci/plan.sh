@@ -8,7 +8,16 @@ cd ${SCRIPT_DIR}
 
 message() {
   envs=$(pwd | rev | cut -d '/' -f 1 | rev)
-  echo "Target: ${envs} planned date: $(TZ=-9 date +"%Y/%m/%d %H:%M:%S")"
+  now=$(TZ=-9 date +"%Y/%m/%d %H:%M:%S")
+  msg=$(
+    cat <<EOF
+### Target Environment\n
+${envs}\n
+### Planned Date
+${now}
+EOF
+  )
+  echo ${msg}
 }
 
 plan() {
