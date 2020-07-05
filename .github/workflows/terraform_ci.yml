@@ -2,10 +2,10 @@ name: "Terraform Continious CI"
 
 on:
   push:
-    branches:
-      - master
-      - development
-  pull_request:
+    # branches:
+    #   - master
+    #   - development
+  # pull_request: # on pull_requestだとtf_notifyが動かない。。。
 
 jobs:
   terraform-ci:
