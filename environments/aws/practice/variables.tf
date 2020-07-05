@@ -1,7 +1,7 @@
 variable aws_instance_type {
   type        = string
   description = "AWSインスタンス種別"
-  default     = "t2.micro"
+  default     = "t2.unknown"
 }
 
 variable aws_instance_tag_name {
