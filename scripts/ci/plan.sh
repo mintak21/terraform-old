@@ -8,7 +8,7 @@ plan() {
     cd ${target}
     terraform init -input=false -no-color
     terraform plan -input=false -no-color |
-      /usr/local/bin/tfnotify --config ../../../cicd/tfnotify.yml plan --message "$(date)"
+      /packages/tfnotify --config ../../../cicd/tfnotify.yml plan --message "$(date)"
   done
 }
 
