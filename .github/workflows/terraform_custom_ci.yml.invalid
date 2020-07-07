@@ -39,9 +39,6 @@ jobs:
       - name: Install Dependent Packages
         run: ./scripts/ci/install_packages.sh
 
-      - name: Check Environment Values
-        run: echo "REPOSITORY is ${GITHUB_REPOSITORY} ID is ${GITHUB_RUN_ID} Revision is ${GITHUB_SHA}"
-
       - name: Terraform Format Check
         run: ./scripts/ci/format.sh
 
