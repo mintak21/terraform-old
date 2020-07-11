@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"log"
+	"os"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -10,6 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ssm"
 	"github.com/kelseyhightower/envconfig"
+	log "github.com/sirupsen/logrus"
 	"github.com/slack-go/slack"
 )
 
@@ -30,8 +31,12 @@ type config struct {
 
 // HandleRequest handle SNSEvent Request
 func HandleRequest(ctx context.Context, event events.SNSEvent) (string, error) {
-	log.Println("start handle request")
-	log.Println("Recieved Event", "topicArn", event.Records[0].SNS.TopicArn, "subscArn", event.Records[0].EventSubscriptionArn, "type", event.Records[0].SNS.Type)
+	log.Info("start handle request")
+	log.WithFields(log.Fields{
+		"topicArn": event.Records[0].SNS.TopicArn,
+		"subscArn": event.Records[0].EventSubscriptionArn,
+		"type":     event.Records[0].SNS.Type,
+	}).Info("Recieved Event")
 	err := postMessages(event.Records[0].SNS.Message)
 	return "end handle request", err
 }
@@ -39,6 +44,7 @@ func HandleRequest(ctx context.Context, event events.SNSEvent) (string, error) {
 func postMessages(message string) error {
 	token, err := slackToken()
 	if err != nil {
+		log.WithError(err)
 		return err
 	}
 	client := slack.New(token)
@@ -58,16 +64,25 @@ func slackToken() (string, error) {
 		WithDecryption: aws.Bool(true),
 	})
 	if err != nil {
-		log.Println("failed to get parameter")
 		return "", err
 	}
-	log.Println("successed get ssm parameter")
+	log.WithFields(log.Fields{
+		"parameterName": conf.TokenSsmParameterName,
+		"region":        conf.Region,
+	}).Info("successed get ssm parameter")
 	return *param.Parameter.Value, nil
 }
 
 func init() {
+	// logging settings
+	log.SetFormatter(&log.JSONFormatter{})
+	log.SetOutput(os.Stdout)
+	log.SetLevel(log.InfoLevel)
+	// configuration loads
 	if err := envconfig.Process("", &conf); err != nil {
-		log.Fatalf("Failed to process env: %s", err.Error())
+		log.WithFields(log.Fields{
+			"err": err.Error(),
+		}).Fatal("Failed to process env")
 	}
 	log.Println("config : ", conf)
 }
