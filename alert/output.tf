@@ -7,3 +7,8 @@ output cost_budget_id {
   value       = module.aws_cost_budgets.this_aws_budgets_budget_id
   description = "予算ID"
 }
+
+output lambda_arn {
+  value       = module.notifier.this_aws_lambda_function_arn
+  description = "通知LambdaARN値"
+}

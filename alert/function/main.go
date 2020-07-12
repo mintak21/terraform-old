@@ -69,7 +69,7 @@ func slackToken() (string, error) {
 	log.WithFields(log.Fields{
 		"parameterName": conf.TokenSsmParameterName,
 		"region":        conf.Region,
-	}).Info("successed get ssm parameter")
+	}).Info("succeeded to get ssm parameter")
 	return *param.Parameter.Value, nil
 }
 
