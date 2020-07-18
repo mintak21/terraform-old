@@ -33,7 +33,7 @@ resource aws_sns_topic_subscription this {
   endpoint  = aws_lambda_function.this.arn
 }
 
-resource aws_lambda_permission default {
+resource aws_lambda_permission this {
   count = var.sns_trigger_enabled && length(var.sns_topic_arn) > 0 ? 1 : 0
 
   statement_id  = "AllowExecutionFromSNS"

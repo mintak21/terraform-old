@@ -17,7 +17,7 @@ variable archive_file {
 
 variable memory {
   type        = number
-  description = "メモリ"
+  description = "メモリ設定値"
   default     = 256
 }
 

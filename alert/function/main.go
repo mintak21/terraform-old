@@ -17,7 +17,8 @@ import (
 // 事前準備
 // 1. https://api.slack.com/apps/ より、chat.write/chat.write.customizeスコープでアプリ作成&OAuthトークンを発行
 // 2. 1のトークンをSSMに格納
-// 3. 1のアプリを通知するチャンネルへ招待
+// 3. 通知先チャンネルへ1で作成したアプリを招待
+// 4. 通知先チャンネルを環境変数に設定
 
 var conf config
 
@@ -37,11 +38,11 @@ func HandleRequest(ctx context.Context, event events.SNSEvent) (string, error) {
 		"subscArn": event.Records[0].EventSubscriptionArn,
 		"type":     event.Records[0].SNS.Type,
 	}).Info("Recieved Event")
-	err := postMessages(event.Records[0].SNS.Message)
+	err := postSlack(event.Records[0].SNS.Message)
 	return "end handle request", err
 }
 
-func postMessages(message string) error {
+func postSlack(message string) error {
 	token, err := slackToken()
 	if err != nil {
 		log.WithError(err)
@@ -52,6 +53,7 @@ func postMessages(message string) error {
 		slack.MsgOptionText(message, false),
 		slack.MsgOptionUsername(conf.NotifyUserName),
 		slack.MsgOptionIconEmoji(conf.NotifyIcon))
+	log.Info("send messages:", message)
 	return err
 }
 
@@ -78,7 +80,7 @@ func init() {
 	log.SetFormatter(&log.JSONFormatter{})
 	log.SetOutput(os.Stdout)
 	log.SetLevel(log.InfoLevel)
-	// configuration loads
+	// load configuration
 	if err := envconfig.Process("", &conf); err != nil {
 		log.WithFields(log.Fields{
 			"err": err.Error(),
