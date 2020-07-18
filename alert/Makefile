@@ -7,7 +7,7 @@ DEST_NAME=notifier
 sequence: deploy
 	rm -rf ${DEST_PATH}
 
-deploy: init build
+deploy: fmt init build
 	terraform apply
 
 dep:
@@ -17,6 +17,9 @@ build:
 	cd ./${SOURCE_PATH}; \
 	GO111MODULE=on go mod download; \
 	GOOS=linux go build -o ../${DEST_PATH}/${DEST_NAME}
+
+fmt:
+	terraform fmt -recursive
 
 init:
 	terraform init
