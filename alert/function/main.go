@@ -30,8 +30,8 @@ type config struct {
 	Region                string `default:"ap-northeast-1"`
 }
 
-// HandleRequest handle SNSEvent Request
-func HandleRequest(ctx context.Context, event events.SNSEvent) (string, error) {
+// handleRequest handle SNSEvent Request
+func handleRequest(ctx context.Context, event events.SNSEvent) (string, error) {
 	log.Info("start handle request")
 	log.WithFields(log.Fields{
 		"topicArn": event.Records[0].SNS.TopicArn,
@@ -90,5 +90,5 @@ func init() {
 }
 
 func main() {
-	lambda.Start(HandleRequest)
+	lambda.Start(handleRequest)
 }
