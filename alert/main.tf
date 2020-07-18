@@ -31,3 +31,14 @@ module notifier {
 
   #depends_on = [data.archive_file.func_zip]
 }
+
+resource aws_ssm_parameter slack_token {
+  name        = "alert_notify_slack_token"
+  description = "Token For Use Slack API"
+  type        = "SecureString"
+  value       = var.slack_token
+
+  tags = {
+    parameter_type = "token"
+  }
+}

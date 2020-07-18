@@ -12,3 +12,8 @@ output lambda_arn {
   value       = module.notifier.this_aws_lambda_function_arn
   description = "通知LambdaARN値"
 }
+
+output slack_token_aws_ssm_parameter_arn {
+  value       = aws_ssm_parameter.slack_token.arn
+  description = "SlackトークンパラメータのARN値"
+}
