@@ -7,7 +7,7 @@ DEST_NAME=notifier
 sequence: deploy
 	rm -rf ${DEST_PATH}
 
-deploy: fmt init build
+deploy: build fmt init
 	terraform apply
 
 dep:
