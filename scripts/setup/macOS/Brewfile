@@ -1,0 +1,14 @@
+# tap
+tap "homebrew/bundle"
+tap "homebrew/cask"
+
+# terraform
+brew "tfenv"
+brew "tflint"
+
+# cloud
+cask "google-cloud-sdk"
+brew "awscli"
+
+# sercret protection
+brew "git-secrets"
