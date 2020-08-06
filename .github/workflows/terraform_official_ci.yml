@@ -4,12 +4,11 @@ on:
   push:
     branches:
       - master
-      - develop
   pull_request:
 
 jobs:
   terraform-ci:
-    name: "Terraform"
+    name: "Terraform CI"
     strategy:
       matrix:
         env: [practice, development]
@@ -23,6 +22,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -35,7 +35,7 @@ jobs:
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }} # for development
 
-      - name: Terraform fmt
+      - name: Terraform Format
         id: fmt
         run: terraform fmt
         continue-on-error: true
@@ -56,8 +56,6 @@ jobs:
 
       - uses: actions/github-script@0.9.0
         if: github.event_name == 'pull_request'
-        env:
-          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -69,7 +67,7 @@ jobs:
 
             <details><summary>Show Plan</summary>
 
-            \`\`\`${process.env.PLAN}\`\`\`
+            \`\`\`terraform\n${{ steps.plan.outputs.stdout }}\`\`\`
 
             </details>
 
