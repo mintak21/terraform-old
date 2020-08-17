@@ -46,4 +46,5 @@ jobs:
         run: |
           sudo apt -y install jq
           terraform show -json ./terraform.tfplan > ./terraform_tfplan.json
+          cat ./terraform_tfplan.json
           cat ./terraform_tfplan.json | jq -r .configuration.root_module.variables.vpc_name.default
