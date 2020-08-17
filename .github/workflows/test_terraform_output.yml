@@ -18,6 +18,12 @@ jobs:
         working-directory: ./environments/aws/${{ matrix.env }}
 
     steps:
+      - name: Install JQ
+        id: jq
+        run: |
+          sudo apt -y update
+          sudo apt -y install jq
+
       - uses: actions/checkout@v2
 
       - name: Configure AWS Credentials
@@ -44,7 +50,7 @@ jobs:
       - name: output test
         id: output
         run: |
-          sudo apt -y install jq
+          echo '{"testkey":2, "testKey2": 22}' | jq
           terraform show -json ./terraform.tfplan > ./terraform_tfplan.json
           cat ./terraform_tfplan.json
           terraform show -json ./terraform.tfplan | jq -r .configuration.root_module.variables.vpc_name.default
