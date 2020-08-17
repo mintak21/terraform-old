@@ -1,0 +1,48 @@
+name: "Terraform Output Test"
+
+on:
+  pull_request:
+
+jobs:
+  terraform-test:
+    name: "Terraform Test"
+    strategy:
+      matrix:
+        env: [practice]
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./environments/aws/${{ matrix.env }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.13.0
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }} # for development
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -lock=false -out ./terraform.tfplan
+
+      - name: output test
+        id: output
+        run: |
+          terraform show -json ./terraform.tfplan > ./terraform_tfplan.json
+          cat ./terraform_tfplan.json
