@@ -8,6 +8,9 @@
 # .tfvars
 *.tfvars
 
+# tfplan
+*.tfplan*
+
 # Crash log files
 crash.log
 
