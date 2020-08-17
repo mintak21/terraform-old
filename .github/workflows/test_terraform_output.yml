@@ -18,13 +18,13 @@ jobs:
         working-directory: ./environments/aws/${{ matrix.env }}
 
     steps:
+      - uses: actions/checkout@v2
+
       - name: Install JQ
         id: jq
         run: |
           sudo apt -y update
           sudo apt -y install jq
-
-      - uses: actions/checkout@v2
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
