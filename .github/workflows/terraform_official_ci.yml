@@ -1,4 +1,4 @@
-name: "Terraform Continious CI By Official"
+name: "Terraform Continuous CI By Official"
 
 on:
   push:
@@ -33,6 +33,7 @@ jobs:
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v1
         with:
+          terraform_version: 0.13.0
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }} # for development
 
       - name: Terraform Format
