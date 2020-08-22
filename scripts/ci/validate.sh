@@ -13,7 +13,7 @@ cd "${SCRIPT_DIR}" || {
 . ./settings.sh
 
 validate() {
-  target_dirs="$(find ../../${base_dir} -type f -name "*.tf" -exec dirname {} \; | sort -u | grep -v ".terraform")"
+  target_dirs="$(find ../../"${base_dir}" -type f -name "*.tf" -exec dirname {} \; | sort -u | grep -v ".terraform")"
   for target in ${target_dirs}; do
     cd "${target}" || return
     terraform init -input=false -no-color

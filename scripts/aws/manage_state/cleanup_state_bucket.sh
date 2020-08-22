@@ -1,5 +1,5 @@
 #!/bin/sh
-cd "$(dirname $0)" || exit 1
+cd "$(dirname "$0")" || exit 1
 . ./settings.sh
 
 delete_S3_bucket() {
