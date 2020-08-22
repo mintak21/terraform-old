@@ -1,6 +1,6 @@
 #!/bin/sh
 
-function install_packages() {
+install_packages() {
   printf '\033[91m%s\033[m\n' 'installing packages...'
   brew upgrade
   brew bundle --file ./Brewfile
@@ -8,15 +8,13 @@ function install_packages() {
   printf '\033[36m%s\033[m\n' 'install packages completed.'
 }
 
-
-function setup_git_secrets() {
+setup_git_secrets() {
   git secrets --register-aws --global
   git secrets --install ~/.git-templates/git-secrets
-  git config --global init.templatedir '~/.git-templates/git-secrets'
+  git config --global init.templatedir "$HOME/.git-templates/git-secrets"
   printf '\033[36m%s\033[m\n' 'git-secrets config set up completed.'
 }
 
-pushd $(dirname $0)
+cd "$(dirname "$0")" || exit 1
 install_packages
 setup_git_secrets
-popd

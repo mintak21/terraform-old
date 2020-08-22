@@ -1,0 +1,43 @@
+name: Terraform Continuous Deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  apply:
+    name: Terraform CD
+    strategy:
+      matrix:
+        env: [practice]
+        # ワークフローレベルでのトリガーなので、冗長でも環境ごとにワークフローを分ける必要ありそう
+        # env: [practice, development]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./environments/aws/${{ matrix.env }}
+
+    steps:
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.13.0
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }} # for development
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve

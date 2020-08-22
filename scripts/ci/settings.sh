@@ -1,3 +1,3 @@
 #!/bin/sh
-aws_region="ap-northeast-1"
-base_dir="environments"
+export aws_region="ap-northeast-1"
+export base_dir="environments"

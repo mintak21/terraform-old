@@ -1,4 +1,4 @@
-name: "Terraform Continious CI By Official"
+name: Terraform Continuous Integration By Official
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   terraform-ci:
-    name: "Terraform CI"
+    name: Terraform CI
     strategy:
       matrix:
         env: [practice, development]
@@ -21,7 +21,9 @@ jobs:
         working-directory: ./environments/aws/${{ matrix.env }}
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v2
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -33,6 +35,7 @@ jobs:
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v1
         with:
+          terraform_version: 0.13.0
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }} # for development
 
       - name: Terraform Format
@@ -80,11 +83,37 @@ jobs:
               body: output
             })
 
-      - name: TFLint Env:${{ matrix.env }}
+      - name: TFLint
         uses: reviewdog/action-tflint@master
         with:
           github_token: ${{ secrets.github_token }}
           working_directory: ./environments/aws/${{ matrix.env }}
           reporter: github-pr-review
-          level: warning
+          filter_mode: nofilter
           fail_on_error: true
+
+      - name: TF Security
+        uses: reviewdog/action-tfsec@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          working_directory: ./environments/aws/${{ matrix.env }}
+          reporter: github-pr-review
+          filter_mode: nofilter
+          fail_on_error: true
+
+  shell-ci:
+    name: Shell Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v2
+
+      - name: Shell Lint
+        id: shelllint
+        uses: reviewdog/action-shellcheck@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          filter_mode: nofilter
+          path: ./scripts
