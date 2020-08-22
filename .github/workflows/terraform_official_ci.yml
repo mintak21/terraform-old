@@ -1,4 +1,4 @@
-name: "Terraform Continuous CI By Official"
+name: Terraform Continuous Integration By Official
 
 on:
   push:
