@@ -6,7 +6,10 @@ SCRIPT_DIR=$(
   }
   pwd
 )
-cd "${SCRIPT_DIR}"
+cd "${SCRIPT_DIR}" || {
+  echo "Failed to exec change directory command"
+  exit 1
+}
 . ./settings.sh
 
 validate() {

@@ -11,7 +11,7 @@ install_packages() {
 setup_git_secrets() {
   git secrets --register-aws --global
   git secrets --install ~/.git-templates/git-secrets
-  git config --global init.templatedir '~/.git-templates/git-secrets'
+  git config --global init.templatedir '$HOME/.git-templates/git-secrets'
   printf '\033[36m%s\033[m\n' 'git-secrets config set up completed.'
 }
 

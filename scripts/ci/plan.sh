@@ -6,7 +6,10 @@ SCRIPT_DIR=$(
   }
   pwd
 )
-cd ${SCRIPT_DIR}
+cd "${SCRIPT_DIR}" || {
+  echo "Failed to exec change directory command"
+  exit 1
+}
 . ./settings.sh
 
 message() {
@@ -30,7 +33,7 @@ plan() {
     terraform init -input=false -no-color
     terraform plan -input=false -no-color |
       /usr/local/bin/tfnotify --config ${SCRIPT_DIR}/../../cicd/tfnotify.yml plan --message "$(message)"
-    cd "${SCRIPT_DIR}"
+    cd "${SCRIPT_DIR}" || return
   done
 }
 
