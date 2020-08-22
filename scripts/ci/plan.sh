@@ -1,6 +1,9 @@
 #!/bin/sh
 SCRIPT_DIR=$(
-  cd "$(dirname $0)"
+  cd "$(dirname $0)" || {
+    echo "Failed to exec change directory command"
+    exit 1
+  }
   pwd
 )
 cd ${SCRIPT_DIR}
