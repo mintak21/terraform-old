@@ -32,6 +32,9 @@ resource aws_instance tutorial {
   ami           = data.aws_ami.latest.image_id
   instance_type = var.aws_instance_type
   encrypted     = true
+  ebs_block_device {
+    encrypted = true
+  }
   tags = {
     Name = var.aws_instance_tag_name
   }
