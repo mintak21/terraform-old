@@ -31,7 +31,7 @@ data aws_ami latest {
 resource aws_instance tutorial {
   ami           = data.aws_ami.latest.image_id
   instance_type = var.aws_instance_type
-  ebs_block_device {
+  root_block_device {
     device_name = "${var.aws_instance_type}-device"
     encrypted   = true
   }
