@@ -32,8 +32,7 @@ resource aws_instance tutorial {
   ami           = data.aws_ami.latest.image_id
   instance_type = var.aws_instance_type
   root_block_device {
-    device_name = "${var.aws_instance_type}-device"
-    encrypted   = true
+    encrypted = true
   }
   tags = {
     Name = var.aws_instance_tag_name
