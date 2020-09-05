@@ -106,6 +106,7 @@ jobs:
         uses: bridgecrewio/checkov-action@master
         with:
           directory: ./environments/aws/${{ matrix.env }}
+          skip_check: CKV_AWS_8
           quiet: true # optional: display only failed checks
           framework: terraform # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
 
