@@ -101,6 +101,14 @@ jobs:
           filter_mode: nofilter
           fail_on_error: true
 
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: ./environments/aws/${{ matrix.env }}
+          quiet: true # optional: display only failed checks
+          framework: terraform # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
+
   shell-ci:
     name: Shell Lint
     runs-on: ubuntu-latest
