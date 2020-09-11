@@ -31,6 +31,11 @@ data aws_ami latest {
 resource aws_instance tutorial {
   ami           = data.aws_ami.latest.image_id
   instance_type = var.aws_instance_type
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 1
+  }
   tags = {
     Name = var.aws_instance_tag_name
   }
